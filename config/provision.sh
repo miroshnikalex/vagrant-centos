@@ -4,8 +4,6 @@ USER="alex" # please add your user here
 GROUP=$USER # change if different from user
 PASSWORD="`printf '%s' $(cat /tmp/password)`"
 WORKSPACE="/workspace" # place for chef repositories
-GUEST_PUBLIC_KEY="guest.pub" # ssh key for connecting to your guest VM. Not required
-MAIN_PRIVATE_KEY="main" # ssh key for connecting to the jump nodes. Required
 GUI="GNOME" # can be KDE, GNOME if you define this variable as something else GUI will not be installed
 
 if [[ -z $PASSWORD ]]; then
