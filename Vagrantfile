@@ -1,6 +1,5 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-USER="alex"
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
@@ -78,12 +77,12 @@ end
 #    chef.add_recipe "bashrc"
 #    chef.add_recipe "directories"
 #end
-config.vm.provision "file",
-     source: "./keys/guest.pub",
-     destination: "/tmp/guest.pub"
-config.vm.provision "file",
-     source: "./keys/main",
-     destination: "/tmp/main"
+#config.vm.provision "file",
+#     source: "./keys/guest.pub",
+#     destination: "/tmp/guest.pub"
+#config.vm.provision "file",
+#     source: "./keys/main",
+#     destination: "/tmp/main"
 config.vm.provision "file",
       source: "./keys/password",
       destination: "/tmp/password"

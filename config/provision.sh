@@ -26,31 +26,6 @@ if [[ -d ./keys ]]; then
   exit 1
 fi
 
-if [[ -z $GUEST_PUBLIC_KEY ]]; then
-  echo "#### WARNING: public key is not defined. Not critical, but make sure this was what you were really going to do ####"
-else
-  if [[ -f /tmp/$GUEST_PUBLIC_KEY ]]; then
-    sudo cp /tmp/$GUEST_PUBLIC_KEY /home/$USER/.ssh
-    chmod 400 /home/$USER/.ssh/$GUEST_PUBLIC_KEY
-  else
-    echo "#### WARNING: Public key does not exist. ####"
-  fi
-fi
-
-if [[ -z $MAIN_PRIVATE_KEY ]]; then
-  echo "#### CRITICAL: private key is not defined, aborting installation. ####"
-  exit 1
-else
-  if [[ -f /tmp/$MAIN_PRIVATE_KEY ]]; then
-    echo "#### INFO: Cpopy private key to $USER home directory ####"
-    sudo cp /tmp/$MAIN_PRIVATE_KEY /home/$USER/.ssh
-    chmod 400 /home/$USER/.ssh/$MAIN_PRIVATE_KEY
-  else
-    echo "#### CRITICAL: Main private key does not exist locally. Aborting installation. ####"
-    exit 1
-  fi
-fi
-
 if [[ $(stat -c "%a" /home/$USER/.ssh) != 700 ]]; then
   echo "#### INFO: Changing permissions for .ssh folder to 700 ####"
   chmod 700 /home/$USER/.ssh
@@ -132,8 +107,6 @@ fi
 yum update -y
 echo "INFO: #### Cleaning Up! ####"
 rm -f /tmp/password
-rm -f /tmp/$MAIN_PRIVATE_KEY
-rm -f /tmp/$GUEST_PUBLIC_KEY
 rm -f /tmp/motd
 rm -f /tmp/.bashrc
 

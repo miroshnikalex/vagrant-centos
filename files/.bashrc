@@ -3,36 +3,9 @@
 # Variables section
 
 WORKSPACE="/workspace"
-USER=""
-KEY_PATH="./ssh/main"
-
-eval `ssh-agent -s`
-ssh-add ${KEY_PATH}
-
-JUMPNODE_VERTICAL_PDEV=40.68.194.188
-JUMPNODE_VERTICAL_DEV=40.113.106.205
-JUMPNODE_VERTICAL_QA=40.68.221.197
-JUMPNODE_VERTICAL_PROD=13.95.156.210
+USER="alex"
 
 # Aliases section
-
-alias clonedev="git clone https://git.dev.eon.com/espp-infrastructure/chef-repo-espp-shark-dev.git"
-alias cloneqa="git clone https://git.dev.eon.com/espp-infrastructure/chef-repo-espp-shark-qa.git"
-alias cloneprod="git clone https://git.dev.eon.com/espp-infrastructure/chef-repo-espp-shark-production.git"
-alias clonepdev="git clone https://git.dev.eon.com/espp-infrastructure/chef-repo-espp-shark-pdev.git"
-alias pdssh="ssh -tt ${user}@${JUMPNODE_VERTICAL_PDEV} ssh -tt"
-alias dssh="ssh -tt ${user}@${JUMPNODE_VERTICAL_DEV} ssh -tt"
-alias qssh="ssh -tt ${user}@${JUMPNODE_VERTICAL_QA} ssh -tt"
-alias pssh="ssh -tt ${user}@${JUMPNODE_VERTICAL_PROD} ssh -tt"
-alias pdjump="ssh ${user}@${JUMPNODE_VERTICAL_PDEV}"
-alias djump="ssh ${user}@${JUMPNODE_VERTICAL_DEV}"
-alias qajump="ssh ${user}@${JUMPNODE_VERTICAL_QA}"
-alias pjump="ssh ${user}@${JUMPNODE_VERTICAL_PROD}"
-alias toWorkspace="cd ${WORKSPACE}"
-alias toDev="cd ${WORKSPACE}/chef-repo/chef-repo-espp-shark-dev"
-alias toQa="cd ${WORKSPACE}/chef-repo/chef-repo-espp-shark-qa"
-alias toPdev="cd {WORKSPACE}/chef-repo/chef-repo-espp-shark-pdev"
-alias toProd="cd ${WORKSPACE}/chef-repo/chef-repo-espp-shark-production"
 
 alias grep='grep --color=auto'
 
