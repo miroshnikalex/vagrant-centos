@@ -4,7 +4,7 @@ USER="alex" # please add your user here
 GROUP=$USER # change if different from user
 PASSWORD="`printf '%s' $(cat /tmp/password)`"
 WORKSPACE="/workspace" # place for chef repositories
-GUI="GNOME" # can be KDE, GNOME if you define this variable as something else GUI will not be installed
+GUI="NONE" # can be KDE, GNOME if you define this variable as something else GUI will not be installed
 
 if [[ -z $PASSWORD ]]; then
   echo "#### CRITICAL: Password is not specified. Aborting installation ####"
@@ -17,11 +17,6 @@ if [[ -z $USER ]]; then
 else
   useradd -m -p $(printf '%s' '$PASSWORD' | openssl passwd -1 stdin) $USER
   mkdir /home/$USER/.ssh
-fi
-
-if [[ -d ./keys ]]; then
-  echo "#### CRITICAL: Directory ./keys does not exist. Aborting Installation ####"
-  exit 1
 fi
 
 if [[ $(stat -c "%a" /home/$USER/.ssh) != 700 ]]; then
@@ -38,6 +33,7 @@ else
   mkdir $WORKSPACE
   chown -R $USER:$GROUP $WORKSPACE
 fi
+
   sudo cp -f /tmp/.bashrc /home/$USER
   sudo cp -f /tmp/.bashrc /root
   sudo cp -f /tmp/motd /etc
@@ -63,6 +59,7 @@ sudo sed -i 's/#   ForwardAgent no/ForwardAgent yes/g' /etc/ssh/ssh_config
 
 yum groupinstall -y "Development Tools"
 yum install -y git gitflow
+yum install -y tree
 yum install -y dos2unix
 yum install -y vim
 yum install -y nano
@@ -77,24 +74,21 @@ yum install -y jq
 yum install -y ShellCheck
 yum install -y lsb-core-noarch
 if [[ $GUI == "KDE" || $GUI == "GNOME" ]]; then
-  echo "#### INFO: Installing Atom editor ####"
+  echo "#### INFO: Installing GUI related packages ####"
   rpm -ihv https://atom.io/download/rpm
   apm install --packages-file /tmp/packagelist.atom
+  yum install -y terminator
+  yum install -y libXScrnSaver
 else
-  echo "INFO: #### GUI is not installed, Atom can't be installed ####"
+  echo "INFO: #### GUI is not installed, GUI related packages can't be installed ####"
 fi
-rpm -ivh https://packages.chef.io/files/stable/chefdk/1.2.22/el/7/chefdk-1.2.22-1.el7.x86_64.rpm
-yum install -y gpg2
-yum install -y terminator
+rpm -ivh https://packages.chef.io/files/stable/chefdk/2.3.4/el/6/chefdk-2.3.4-1.el6.x86_64.rpm
 yum install -y python-pip
 yum install -y npm
 pip install --upgrade pip
 pip install awscli
 npm install azure-cli -g
-curl -sSL https://rvm.io/mpapis.asc | sudo gpg2 --import -
-curl -sSL https://get.rvm.io | bash -s stable --ruby
-source /usr/local/rvm/scripts/rvm
-chkconfig docker on
+systemctl enable docker
 systemctl start docker
 if [[ $GUI == "KDE" || $GUI == "GNOME" ]]; then
   echo "#### INFO: Setting GUI mode as default ####"
@@ -103,10 +97,25 @@ else
   echo "INFO: #### GUI is not installed, use CLI ####"
 fi
 yum update -y
+
+dos2unix /root/.bashrc
+dos2unix /home/$USER/.bashrc
+dos2unix ./terraform_install.sh
+
+if [[ -f /tmp/terraform_install.sh ]]; then
+  echo "INFO: #### Installing terraform and packer ####"
+  cd /tmp
+  chmod 0755 ./terraform_install.sh
+  ./terraform_install.sh
+else
+  echo "INFO: ####Terraform installation script does not exist. Please consider to install terraform and packer later"
+fi
+
 echo "INFO: #### Cleaning Up! ####"
 rm -f /tmp/password
 rm -f /tmp/motd
 rm -f /tmp/.bashrc
+rm -f /tmp/terraform_install.sh
 
 echo "INFO: ####   Rebooting system to apply all changes   ####"
 shutdown -r now

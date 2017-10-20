@@ -13,13 +13,16 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "centos/7"
+  config.vm.box_version = "1706.02"
   config.vbguest.auto_update = true
-  config.vm.hostname = "eon-centos"
+  config.vm.hostname = "vbox-centos"
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
-  # config.vm.box_check_update = false
+  config.vm.box_check_update = false
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
@@ -55,6 +58,9 @@ config.vm.provider "virtualbox" do |vb|
      vb.customize ["modifyvm", :id, "--draganddrop", "bidirectional"]
      vb.customize ["modifyvm", :id, "--usb", "on"]
 end
+config.vm.provider :virtualbox do |vb|
+        vb.name = "vbox-centos"
+end
   #
   # View the documentation for the provider you are using for more
   # information on available options.
@@ -83,6 +89,9 @@ end
 #config.vm.provision "file",
 #     source: "./keys/main",
 #     destination: "/tmp/main"
+config.vm.provision "file",
+      source: "./files/terraform_install.sh",
+      destination: "/tmp/terraform_install.sh"
 config.vm.provision "file",
       source: "./keys/password",
       destination: "/tmp/password"
