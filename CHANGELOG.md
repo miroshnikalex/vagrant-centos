@@ -20,3 +20,6 @@ This file is used to list changes made in each version of the vagrant-centos pro
 ### Run dos2unix against .bashrc files at the end
 ### Some cosmetic changes
 ### Added Terraform and Packer installation
+
+## [3.0.1] - 2017-10-20
+### Added curl

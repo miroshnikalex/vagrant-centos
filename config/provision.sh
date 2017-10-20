@@ -59,6 +59,7 @@ sudo sed -i 's/#   ForwardAgent no/ForwardAgent yes/g' /etc/ssh/ssh_config
 
 yum groupinstall -y "Development Tools"
 yum install -y git gitflow
+yum install -y curl
 yum install -y tree
 yum install -y dos2unix
 yum install -y vim
