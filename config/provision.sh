@@ -58,19 +58,18 @@ sudo sed -i 's/#   StrictHostKeyChecking ask/StrictHostKeyChecking no/g' /etc/ss
 sudo sed -i 's/#   ForwardAgent no/ForwardAgent yes/g' /etc/ssh/ssh_config
 
 yum groupinstall -y "Development Tools"
+yum install -y google-chrome-stable
 yum install -y kernel-develop
 yum install -y git gitflow
+yum install -y iotop iptraf-ng iftop htop traceroute
 yum install -y curl
 yum install -y tree
 yum install -y dos2unix
-yum install -y vim
-yum install -y nano
+yum install -y vim nano
 yum install -y unzip
 yum install -y screen
 yum install -y ruby
 yum install -y mc
-yum install -y traceroute
-yum install -y htop
 yum install -y docker
 yum install -y jq
 yum install -y ShellCheck

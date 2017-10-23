@@ -89,6 +89,9 @@ end
 #config.vm.provision "file",
 #     source: "./keys/main",
 #     destination: "/tmp/main"
+config.vm.provosion "file"
+      source: "./files/google-chrome.repo"
+      destination: "/etc/yum.repos.d/google-chrome.repo"
 config.vm.provision "file",
       source: "./files/terraform_install.sh",
       destination: "/tmp/terraform_install.sh"
