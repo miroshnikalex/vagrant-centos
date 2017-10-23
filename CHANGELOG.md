@@ -23,3 +23,6 @@ This file is used to list changes made in each version of the vagrant-centos pro
 
 ## [3.0.1] - 2017-10-20
 ### Added curl
+
+## [3.0.2] - 2017-10-23
+### Added kernel-develop

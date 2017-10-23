@@ -4,7 +4,7 @@ USER="alex" # please add your user here
 GROUP=$USER # change if different from user
 PASSWORD="`printf '%s' $(cat /tmp/password)`"
 WORKSPACE="/workspace" # place for chef repositories
-GUI="NONE" # can be KDE, GNOME if you define this variable as something else GUI will not be installed
+GUI="GNOME" # can be KDE, GNOME if you define this variable as something else GUI will not be installed
 
 if [[ -z $PASSWORD ]]; then
   echo "#### CRITICAL: Password is not specified. Aborting installation ####"
@@ -58,6 +58,7 @@ sudo sed -i 's/#   StrictHostKeyChecking ask/StrictHostKeyChecking no/g' /etc/ss
 sudo sed -i 's/#   ForwardAgent no/ForwardAgent yes/g' /etc/ssh/ssh_config
 
 yum groupinstall -y "Development Tools"
+yum install -y kernel-develop
 yum install -y git gitflow
 yum install -y curl
 yum install -y tree
@@ -101,7 +102,7 @@ yum update -y
 
 dos2unix /root/.bashrc
 dos2unix /home/$USER/.bashrc
-dos2unix ./terraform_install.sh
+dos2unix /tmp/terraform_install.sh
 
 if [[ -f /tmp/terraform_install.sh ]]; then
   echo "INFO: #### Installing terraform and packer ####"
