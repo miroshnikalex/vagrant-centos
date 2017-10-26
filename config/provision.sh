@@ -58,6 +58,7 @@ sudo sed -i 's/#   StrictHostKeyChecking ask/StrictHostKeyChecking no/g' /etc/ss
 sudo sed -i 's/#   ForwardAgent no/ForwardAgent yes/g' /etc/ssh/ssh_config
 
 yum groupinstall -y "Development Tools"
+yum install -y ansible ansible-doc ansible-inventory-grapher ansible-lint ansible-review
 yum install -y google-chrome-stable
 yum install -y kernel-develop
 yum install -y git gitflow

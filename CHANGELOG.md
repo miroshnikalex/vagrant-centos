@@ -27,5 +27,8 @@ This file is used to list changes made in each version of the vagrant-centos pro
 ## [3.0.2] - 2017-10-23
 ### Added kernel-develop
 
-## [3.0.2] - 2017-10-23
+## [3.0.3] - 2017-10-23
 ### Added google-chrome and some monitoring tools
+
+## [3.0.4] - 2017-10-26
+### Added Ansible and related tools to the installation
